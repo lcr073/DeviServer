@@ -8,9 +8,9 @@ public class Db {
         Classe responsavel por conectar ao SGBD e retornar um objeto
         de tal conexao
     */
-    private static final String USUARIO = "usuario_banco";
-    private static final String SENHA = "senha_banco";
-    private static final String URL = "jdbc:mysql://endereco_do_banco";
+    private static final String USUARIO = "USUARIO";
+    private static final String SENHA = "SENHA";
+    private static final String URL = "jdbc:mysql://ENDERECO DB/NOMEBANCO";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
 
     // Conectar ao banco

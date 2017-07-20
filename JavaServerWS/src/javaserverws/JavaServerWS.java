@@ -13,12 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JavaServerWS extends WebSocketServer{
-
+        // Lista onde armazenamos todos os usuario logados e suas caracteristicas
         ArrayList <User> ListaUsu = new ArrayList<>();
+        
+        // Criamos uma instancia de listaItem
+        // Classe que possui um método que obtem todos os itens do db os retorna
+        // na forma de um mapa onde teremos como a primeira chave o id de tal objeto
+        // e na segunra um array contendo todas as informações do item em si
         listaItem listaItem = new listaItem();
-        
         Map<String,String[]> itens = listaItem.listaItem();
-        
 
         public JavaServerWS(InetSocketAddress address) {
 		super(address);
