@@ -49,8 +49,16 @@ public class ProcessaSolic {
                 if(usuario.getLogou()){
                        // Vincula ao objeto usuario as informações sobre esse personagem
                         usuario.setcharSelect(true);
+                       
+                        // Atribuindo o valor do id ao objeto do usuario
                         usuario.setidCharSelect(parts_msg[1]);
                         
+                       // Carregando todos os itens ligados ao personagem selecionado
+                       //ObtemItensChar
+                       ObtemItensChar pegaItens = new ObtemItensChar();
+                       pegaItens.carregaArmazemoCharMEM(usuario);
+                       pegaItens.carregaEquipsMEM(usuario);
+                       pegaItens.carregaInventarioCharMEM(usuario);
                 }else{
                     // Usuario forcando selecao char sem ter logado
                     conn.send("Login Necessario");

@@ -1,5 +1,7 @@
 package javaserverws;
 
+import java.util.Map;
+
 public class User {
     private String EnderecoUsuario; 
     private String Usuario;
@@ -9,10 +11,26 @@ public class User {
     private String idCharSelect;
     private String X;
     private String Y;
+    private Map<String,String[]> armazemConta;
+    private Map<String,String[]> inventarioChar;    
+    private Map<String,String> equipChar;  
+    
     
     public User(String address){
         EnderecoUsuario = address;   
         logou = false;
+    }
+    
+    public void setarmazemConta(Map<String,String[]> item){
+        armazemConta = item;
+    }
+    
+    public void setinventarioChar(Map<String,String[]> item){
+        inventarioChar = item;
+    }
+    
+    public void setequipChar(Map<String,String> item){
+        equipChar = item;
     }
     
     public void setX(String X){
@@ -47,7 +65,7 @@ public class User {
         return this.idCharSelect;
     }
     
-    public void setidCharSelect(String status){
+    public void setidCharSelect(String idCharSelect){
         this.idCharSelect = idCharSelect;
     }
 

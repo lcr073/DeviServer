@@ -10,7 +10,7 @@ public class Db {
     */
     private static final String USUARIO = "USUARIO";
     private static final String SENHA = "SENHA";
-    private static final String URL = "jdbc:mysql://ENDERECO DB/NOMEBANCO";
+    private static final String URL = "jdbc:mysql://ENDERECO/BANCOi";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
 
     // Conectar ao banco
