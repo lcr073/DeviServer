@@ -22,6 +22,8 @@ public class JavaServerWS extends WebSocketServer{
         // e na segunra um array contendo todas as informações do item em si
         listaItem listaItem = new listaItem();
         Map<String,String[]> itens = listaItem.listaItem();
+        
+
 
         public JavaServerWS(InetSocketAddress address) {
 		super(address);
@@ -42,6 +44,7 @@ public class JavaServerWS extends WebSocketServer{
 	@Override
 	public void onMessage(WebSocket conn, String message) {
                 System.out.println("usuario mandou:" + message);
+               
                 ProcessaSolic proc = new ProcessaSolic(conn, message, ListaUsu,itens);
                               
 	}
@@ -61,8 +64,10 @@ public class JavaServerWS extends WebSocketServer{
                 System.out.println("Servidor Iniciado");     
                 
 		server.start();
-                
-
+               
+                // Thread de backupeamento com o DB
+                DbBuffer backup = new DbBuffer();
+                new Thread(backup).start();
                 System.out.println();
 
 

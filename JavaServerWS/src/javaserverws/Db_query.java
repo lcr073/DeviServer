@@ -47,4 +47,52 @@ public class Db_query {
         }
 
     }
+    
+    // Operação de inserir no DB
+    public static void Insert(String query){
+        try{
+            // Conexao db
+                Connection conn = Db.connect();
+                Statement st = conn.createStatement();
+            // Query de inserção
+                st.executeUpdate(query);
+            // Fechando conexão
+               conn.close();
+            
+        }catch(Exception e){
+            System.out.println("Erro em insercao no DB");
+        }
+    }
+    
+    // Operação de atualizar no DB
+    public static void Update(String query){
+        try{
+            // Conexao db
+                Connection conn = Db.connect();
+                Statement st = conn.createStatement();
+            // Query de inserção
+                st.executeUpdate(query);
+            // Fechando conexão
+               conn.close();
+            
+        }catch(Exception e){
+            System.out.println("Erro em atualizacao no DB");
+        }
+    } 
+    
+    // Operação de remocao no DB
+    public static void Delete(String query){
+        try{
+            // Conexao db
+                Connection conn = Db.connect();
+                Statement st = conn.createStatement();
+            // Query de inserção
+                st.executeUpdate(query);
+            // Fechando conexão
+               conn.close();
+            
+        }catch(Exception e){
+            System.out.println("Erro em atualizacao no DB");
+        }
+    }        
 }

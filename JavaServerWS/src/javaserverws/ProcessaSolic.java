@@ -1,6 +1,7 @@
 package javaserverws;
 import com.pusher.java_websocket.WebSocket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 public class ProcessaSolic {
@@ -24,6 +25,22 @@ public class ProcessaSolic {
                     usuario.setLogou(true);
                     usuario.setUsuario(parts_msg[1]);
                     conn.send("Logou");
+
+                    // Registrando data de acesso (d) date
+                    String[] data_acesso = new String[2];
+                    
+                    data_acesso[0] = "d";
+                    // id usuario
+                    data_acesso[1] = usuario.getidUser();
+                    DbBuffer.DbBuffer.add(data_acesso);
+                    
+                    // Registrando ultimo endereco de acesso (a) address
+                    String[] usuario_address = new String[3];
+                    usuario_address[0] = "a";
+                    usuario_address[1] = usuario.getidUser();
+                    usuario_address[2] = usuario.getEnderecoUsuario();
+                    System.out.println(usuario_address[0] + usuario_address[1] + usuario_address[2]);
+                    DbBuffer.DbBuffer.add(usuario_address);  
                 }
                 else
                 {
