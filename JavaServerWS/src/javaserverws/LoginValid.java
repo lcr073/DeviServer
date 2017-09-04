@@ -29,27 +29,34 @@ public class LoginValid {
     public String getSenha(){ return Senha; }       
 
     public boolean Validlogin(User user){
-        // Validacao
-        // ArrayList busca_senha = Db_query.DbQuery("SELECT senha FROM login WHERE usuario = '" + getUsuario() +"'");
-        ArrayList<String[]> busca_senha = Db_query.DbQuery("SELECT idLogin, senha FROM login WHERE usuario = '" + getUsuario() +"'");
-        
-               // System.out.println("result" + busca_senha.get(0)[2]);
-        
-        try{
-            String senha = busca_senha.get(0)[2];
-            
-              if(this.getSenha().equals(senha)){
-                 user.setidUser(busca_senha.get(0)[1]);
-                System.out.println(ANSI_GREEN + "[Logou]" + user.getEnderecoUsuario()+ " : " + "Usuario: "+ this.getUsuario() +  ANSI_WHITE); 
-                    return true;
-              }else{
-                    System.out.println(ANSI_RED + "[Senha Incorreta] " + user.getEnderecoUsuario()+ " : " + "Usuario: "+ this.getUsuario() +  " Senha: " + this.getSenha() +  ANSI_WHITE);                  
-                  return false;
-              }  
+        // Valida se usuario e senha estao com tamanho corretos
+        if((this.Usuario.length() < 6) || (this.Usuario.length() > 64) || (this.Senha.length() < 6) || (this.Senha.length() > 30)){
+            System.out.println(ANSI_RED + "Comprimento do usuario e / ou senha invalidos" + ANSI_WHITE);    
+            return false;
         }
-        catch(IndexOutOfBoundsException e){
-            System.out.println(ANSI_RED + "[Usuario Incorreto] " + user.getEnderecoUsuario()+ " : " + " Usuario: " + this.getUsuario() +  ANSI_WHITE);
-                        return false;   
+        else{
+            // Validacao
+            // ArrayList busca_senha = Db_query.DbQuery("SELECT senha FROM login WHERE usuario = '" + getUsuario() +"'");
+            ArrayList<String[]> busca_senha = Db_query.DbQuery("SELECT idLogin, senha FROM login WHERE usuario = '" + getUsuario() +"'");
+
+                   // System.out.println("result" + busca_senha.get(0)[2]);
+
+            try{
+                String senha = busca_senha.get(0)[2];
+
+                  if(this.getSenha().equals(senha)){
+                     user.setidUser(busca_senha.get(0)[1]);
+                    System.out.println(ANSI_GREEN + "[Logou]" + user.getEnderecoUsuario()+ " : " + "Usuario: "+ this.getUsuario() +  ANSI_WHITE); 
+                        return true;
+                  }else{
+                        System.out.println(ANSI_RED + "[Senha Incorreta] " + user.getEnderecoUsuario()+ " : " + "Usuario: "+ this.getUsuario() +  " Senha: " + this.getSenha() +  ANSI_WHITE);                  
+                      return false;
+                  }  
+            }
+            catch(IndexOutOfBoundsException e){
+                System.out.println(ANSI_RED + "[Usuario Incorreto] " + user.getEnderecoUsuario()+ " : " + " Usuario: " + this.getUsuario() +  ANSI_WHITE);
+                            return false;   
+            }
         }
     }
 }

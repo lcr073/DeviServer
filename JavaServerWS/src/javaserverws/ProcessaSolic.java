@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Map;
 
 public class ProcessaSolic {
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_WHITE = "\u001B[37m";    
     /*
         ProcessaSolic (Processa Solicitacoes)
         Classe que pega a mensagem recebida pelo WebSocket separa a tag 
@@ -18,33 +20,39 @@ public class ProcessaSolic {
 
             // Tag de servico relacionada a login (l)
             if(parts_msg[0].equals("l")){
-                LoginValid login = new LoginValid(parts_msg[1], parts_msg[2]);
-                if(login.Validlogin(usuario))
-                { 
-                    // Abrindo a "sessão" do usuario
-                    usuario.setLogou(true);
-                    usuario.setUsuario(parts_msg[1]);
-                    conn.send("Logou");
+                try{
+                    LoginValid login = new LoginValid(parts_msg[1], parts_msg[2]);
 
-                    // Registrando data de acesso (d) date
-                    String[] data_acesso = new String[2];
-                    
-                    data_acesso[0] = "d";
-                    // id usuario
-                    data_acesso[1] = usuario.getidUser();
-                    DbBuffer.DbBuffer.add(data_acesso);
-                    
-                    // Registrando ultimo endereco de acesso (a) address
-                    String[] usuario_address = new String[3];
-                    usuario_address[0] = "a";
-                    usuario_address[1] = usuario.getidUser();
-                    usuario_address[2] = usuario.getEnderecoUsuario();
-                    System.out.println(usuario_address[0] + usuario_address[1] + usuario_address[2]);
-                    DbBuffer.DbBuffer.add(usuario_address);  
-                }
-                else
-                {
-                   conn.send("Invalido");
+                    if(login.Validlogin(usuario))
+                    { 
+                        // Abrindo a "sessão" do usuario
+                        usuario.setLogou(true);
+                        usuario.setUsuario(parts_msg[1]);
+                        conn.send("Logou");
+
+                        // Registrando data de acesso (d) date
+                        String[] data_acesso = new String[2];
+
+                        data_acesso[0] = "d";
+                        // id usuario
+                        data_acesso[1] = usuario.getidUser();
+                        DbBuffer.DbBuffer.add(data_acesso);
+
+                        // Registrando ultimo endereco de acesso (a) address
+                        String[] usuario_address = new String[3];
+                        usuario_address[0] = "a";
+                        usuario_address[1] = usuario.getidUser();
+                        usuario_address[2] = usuario.getEnderecoUsuario();
+                        System.out.println(usuario_address[0] + usuario_address[1] + usuario_address[2]);
+                        DbBuffer.DbBuffer.add(usuario_address);  
+                    }
+                    else
+                    {
+                       conn.send("Invalido");
+                    }
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println(ANSI_RED+ "Usuario e / ou senha em branco" + ANSI_WHITE);
+                    conn.send("Invalido");
                 }
             }        
             

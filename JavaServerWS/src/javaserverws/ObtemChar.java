@@ -18,37 +18,44 @@ public class ObtemChar {
     public static void Obtem_char(WebSocket conn, String idLogin, Map<String,String[]> itens){
 
         
-        // Obtem os id e nome dos personagens e seus respectivos equipamentos equipados
-    ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
+            // Obtem os id e nome dos personagens e seus respectivos equipamentos equipados
+        ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
 
-    // Obtem os id originais (globais) dos equipamentos dos usuarios
-    ArrayList<String[]> id_glob_equips_char = Db_query.DbQuery("SELECT idInstanciaItem, idListaItem FROM instanciaItem WHERE " + stringQueryBuscaIDEquip(equips_char) +";");
-           
-             // Varredura entre todos os personagens
-             for(int i =0; i< equips_char.size(); i++){
-                 
-                 //String de envio ao cliente 
-                 // OBS: equips_char.get(i)[1] e [2] correspondem ao id e nome do char
-                 String resp = new String("iC:" + equips_char.get(i)[1] + ":" + equips_char.get(i)[2]);
-                 
-                 // varredura entre todos os slots de equipamentos do personagem
-                 for(int l = dbComecaItem; l < (dbTerminaItem + 1); l++){
-                     //Varre o vetor de equips instanciados para achar uma correspondencia
-                     // ao valor escolhido
-                     for(int k = 0; k < id_glob_equips_char.size(); k++){
-                         if((equips_char.get(i)[l]).equals(id_glob_equips_char.get(k)[1])){
-                             // Ao ser igual, substituimos o valor do array para o valor do item geral
-                             equips_char.get(i)[l] = id_glob_equips_char.get(k)[2];
+        // Analisa se ele encontrou ao menos 1 personagem ou nao
+        if(equips_char.isEmpty()){
+            String resp = new String("sC");
+            conn.send(resp);
+        }
+        else{
+            // Obtem os id originais (globais) dos equipamentos dos usuarios
+            ArrayList<String[]> id_glob_equips_char = Db_query.DbQuery("SELECT idInstanciaItem, idListaItem FROM instanciaItem WHERE " + stringQueryBuscaIDEquip(equips_char) +";");
+
+                     // Varredura entre todos os personagens
+                     for(int i =0; i< equips_char.size(); i++){
+
+                         //String de envio ao cliente 
+                         // OBS: equips_char.get(i)[1] e [2] correspondem ao id e nome do char
+                         String resp = new String("iC:" + equips_char.get(i)[1] + ":" + equips_char.get(i)[2]);
+
+                         // varredura entre todos os slots de equipamentos do personagem
+                         for(int l = dbComecaItem; l < (dbTerminaItem + 1); l++){
+                             //Varre o vetor de equips instanciados para achar uma correspondencia
+                             // ao valor escolhido
+                             for(int k = 0; k < id_glob_equips_char.size(); k++){
+                                 if((equips_char.get(i)[l]).equals(id_glob_equips_char.get(k)[1])){
+                                     // Ao ser igual, substituimos o valor do array para o valor do item geral
+                                     equips_char.get(i)[l] = id_glob_equips_char.get(k)[2];
+                                 }
+                             }
+
+                             // Concatenando os elementos da resposta
+                             resp = resp.concat(":" + equips_char.get(i)[l]);
                          }
-                     }
-                     
-                     // Concatenando os elementos da resposta
-                     resp = resp.concat(":" + equips_char.get(i)[l]);
-                 }
-                 
-                  // Respondendo ao cliente
-                   conn.send(resp);
-              }
+
+                          // Respondendo ao cliente
+                           conn.send(resp);
+                      }
+        }
     }
       
         private static String stringQueryBuscaIDEquip(ArrayList<String[]> equips_char){
