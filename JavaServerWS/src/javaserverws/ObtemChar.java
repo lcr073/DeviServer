@@ -19,7 +19,7 @@ public class ObtemChar {
 
         
             // Obtem os id e nome dos personagens e seus respectivos equipamentos equipados
-        ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
+        ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq,lvChar,x,y,sexo,est_cabelo,cor_cabelo,atrib_str,atrib_agi,atrib_dex,atrib_int,atrib_luck FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
 
         // Analisa se ele encontrou ao menos 1 personagem ou nao
         if(equips_char.isEmpty()){
@@ -51,7 +51,9 @@ public class ObtemChar {
                              // Concatenando os elementos da resposta
                              resp = resp.concat(":" + equips_char.get(i)[l]);
                          }
-
+                         
+                         // concatenado final da resposta
+                        resp = resp.concat(":" + equips_char.get(i)[dbTerminaItem+1] + ":" + equips_char.get(i)[dbTerminaItem+2] + ":" + equips_char.get(i)[dbTerminaItem+3] + ":" + equips_char.get(i)[dbTerminaItem+4] + ":" + equips_char.get(i)[dbTerminaItem+5] + ":" + equips_char.get(i)[dbTerminaItem+6] + ":" + equips_char.get(i)[dbTerminaItem+7] + ":" + equips_char.get(i)[dbTerminaItem+8] + ":" + equips_char.get(i)[dbTerminaItem+9] + ":" + equips_char.get(i)[dbTerminaItem+10] + ":" + equips_char.get(i)[dbTerminaItem+11]);
                           // Respondendo ao cliente
                            conn.send(resp);
                       }
