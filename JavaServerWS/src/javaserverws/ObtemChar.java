@@ -19,7 +19,7 @@ public class ObtemChar {
 
         
             // Obtem os id e nome dos personagens e seus respectivos equipamentos equipados
-        ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq,lvChar,x,y,sexo,est_cabelo,cor_cabelo,atrib_str,atrib_agi,atrib_dex,atrib_int,atrib_luck FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
+        ArrayList<String[]> equips_char = Db_query.DbQuery("SELECT cE.idChar, nomeChar , idItemCabeca,idItemFace, idItemCostas, idItemMaoEsq,lvChar,x,y,sexo,est_cabelo,cor_cabelo,atrib_str,atrib_agi,atrib_dex,atrib_int,atrib_luck,hp,sp FROM charEquip AS cE INNER JOIN charc AS c ON(cE.idChar = c.idChar) WHERE idLogin = '" + idLogin +"'");
 
         // Analisa se ele encontrou ao menos 1 personagem ou nao
         if(equips_char.isEmpty()){
@@ -38,13 +38,18 @@ public class ObtemChar {
                          String resp = new String("iC:" + equips_char.get(i)[1] + ":" + equips_char.get(i)[2]);
 
                          // varredura entre todos os slots de equipamentos do personagem
+
                          for(int l = dbComecaItem; l < (dbTerminaItem + 1); l++){
                              //Varre o vetor de equips instanciados para achar uma correspondencia
                              // ao valor escolhido
+
+                            for_selecao:                             
                              for(int k = 0; k < id_glob_equips_char.size(); k++){
                                  if((equips_char.get(i)[l]).equals(id_glob_equips_char.get(k)[1])){
                                      // Ao ser igual, substituimos o valor do array para o valor do item geral
                                      equips_char.get(i)[l] = id_glob_equips_char.get(k)[2];
+                                     // Necessario, para se continuar a varredura nao achar elementos inconsistentes
+                                     break for_selecao;
                                  }
                              }
 

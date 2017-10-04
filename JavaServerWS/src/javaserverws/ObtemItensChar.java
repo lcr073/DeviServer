@@ -66,6 +66,24 @@ public class ObtemItensChar {
                  usuario.setarmazemConta(armazemConta);
         }        
           
-
-    
+        public void carregaCaracCharMEM(User usuario){
+            // Carregando as caracteristicas do char selecionado para o objeto do usuario
+                  ArrayList<String[]> carac_char = Db_query.DbQuery("SELECT nomeChar,lvChar,x,y,sexo,est_cabelo,cor_cabelo,atrib_str,atrib_agi,atrib_dex,atrib_int,atrib_luck,hp,sp FROM charc WHERE idChar = '" + usuario.getidCharSelect() +"'");
+                  for(int i = 0; i< carac_char.size();i++){
+                      usuario.setnomeCharSelect(carac_char.get(i)[1]);                      
+                      usuario.setlevel(carac_char.get(i)[2]);                      
+                      usuario.setX(carac_char.get(i)[3]);
+                      usuario.setY(carac_char.get(i)[4]);
+                      usuario.setsexo(carac_char.get(i)[5]);
+                      usuario.setestiloCabelo(carac_char.get(i)[6]);
+                      usuario.setcorCabelo(carac_char.get(i)[7]);
+                      usuario.setatribStr(carac_char.get(i)[8]);
+                      usuario.setatribAgi(carac_char.get(i)[9]);
+                      usuario.setatribDex(carac_char.get(i)[10]);
+                      usuario.setatribInt(carac_char.get(i)[11]);
+                      usuario.setatribLuck(carac_char.get(i)[12]);
+                      usuario.sethp(carac_char.get(i)[13]);
+                      usuario.setsp(carac_char.get(i)[14]);                      
+                  }   
+        }          
 }

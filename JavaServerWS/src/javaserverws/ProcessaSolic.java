@@ -84,6 +84,8 @@ public class ProcessaSolic {
                        pegaItens.carregaArmazemoCharMEM(usuario);
                        pegaItens.carregaEquipsMEM(usuario);
                        pegaItens.carregaInventarioCharMEM(usuario);
+                       pegaItens.carregaCaracCharMEM(usuario);
+                       conn.send(usuario.infoCharUsu());
                 }else{
                     // Usuario forcando selecao char sem ter logado
                     conn.send("Login Necessario");
