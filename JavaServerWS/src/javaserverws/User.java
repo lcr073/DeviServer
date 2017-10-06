@@ -25,7 +25,8 @@ public class User {
     private String atribAgi;    
     private String atribDex;    
     private String atribInt;    
-    private String atribLuck;        
+    private String atribLuck; 
+    private String corOlhos;    
     
     public User(String address){
         EnderecoUsuario = address;   
@@ -67,6 +68,14 @@ public class User {
     public String getcorCabelo(){
         return this.corCabelo;
     }      
+    
+    public void setcorOlhos(String corOlhos){
+        this.corOlhos = corOlhos;
+    }    
+    
+    public String getcorOlhos(){
+        return this.corOlhos;
+    }        
     
     public void setlevel(String level){
         this.level = level;
@@ -222,7 +231,8 @@ public class User {
                 this.getatribInt() + ":" +
                 this.getatribLuck() + ":" +
                 this.gethp() + ":" +
-                this.getsp()
+                this.getsp() + ":" +
+                this.getcorOlhos()
         ;
         
         
@@ -231,8 +241,9 @@ public class User {
             //Capturamos o valor a partir da chave
             String value = getequipChar().get(key);
             infoUsu = infoUsu.concat(":" + value);
+            String idGlobal = JavaServerWS.get_relac_item_espec_global().get(value);
+            infoUsu = infoUsu.concat(":" + idGlobal);
         }
-
         return infoUsu;
     }
     

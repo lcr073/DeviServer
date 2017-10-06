@@ -23,8 +23,20 @@ public class JavaServerWS extends WebSocketServer{
         listaItem listaItem = new listaItem();
         Map<String,String[]> itens = listaItem.listaItem();
         
+        // Mapa onde sao adicionados a medida que necessitamos o relacionamento
+        // entre um item com seu id especifico e seu item global, principalemnte
+        // para efeito de comercio ou visualizacao no cliente
+        
+       private static Map<String,String> relac_item_espec_global = new HashMap<String,String>();
 
-
+        public static Map<String,String> get_relac_item_espec_global(){
+            return relac_item_espec_global;
+        }
+        
+        public static void set_relac_item_espec_global(String key, String value){
+           relac_item_espec_global.put(key, value);
+         }
+        
         public JavaServerWS(InetSocketAddress address) {
 		super(address);
 	}
