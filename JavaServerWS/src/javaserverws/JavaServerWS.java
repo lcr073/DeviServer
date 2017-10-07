@@ -28,7 +28,7 @@ public class JavaServerWS extends WebSocketServer{
         // para efeito de comercio ou visualizacao no cliente
         
        private static Map<String,String> relac_item_espec_global = new HashMap<String,String>();
-
+       
         public static Map<String,String> get_relac_item_espec_global(){
             return relac_item_espec_global;
         }
@@ -39,6 +39,9 @@ public class JavaServerWS extends WebSocketServer{
         
         public JavaServerWS(InetSocketAddress address) {
 		super(address);
+               
+                // Acrescentando a referenca que um objeto vazio e 0
+                this.set_relac_item_espec_global("0","0");
 	}
         
 	@Override

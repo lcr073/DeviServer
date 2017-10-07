@@ -38,96 +38,100 @@ public class ObtemItensChar {
                   // String utilizada para realizar a pesquisa dos id's globais
                   // dos equips que o jogador possuir 
                   
-                   String queryGlobal = ""; 
+                   String queryGlobal = "";
+                  
+                for(int i = 0; i<equips_char.size();i++){
+                    if(!(equips_char.get(i)[1].equals("0"))){
+                        equipChar.put(ItemCabeca, equips_char.get(i)[1]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[1]);
+                    }else{
+                        equipChar.put(ItemCabeca, "0");                           
+                    }
 
-                   for(int i = 0; i<equips_char.size();i++){
-                       if(!(equips_char.get(i)[1].equals("0"))){
-                           equipChar.put(ItemCabeca, equips_char.get(i)[1]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[1]);
-                       }else{
-                           equipChar.put(ItemCabeca, "0");                           
-                       }
-                       
-                       if(!(equips_char.get(i)[2].equals("0"))){
-                           equipChar.put(ItemFace, equips_char.get(i)[2]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[2]);
-                       }else{
-                           equipChar.put(ItemFace, "0");                           
-                       }                       
-                       
-                       if(!(equips_char.get(i)[3].equals("0"))){
-                            equipChar.put(ItemPeito, equips_char.get(i)[3]);
-                            queryGlobal = queryGlobal.concat("," + equips_char.get(i)[3]);
-                       }else{
-                           equipChar.put(ItemPeito, "0");                           
-                       }
-                       
-                       if(!(equips_char.get(i)[4].equals("0"))){
-                           equipChar.put(ItemCostas, equips_char.get(i)[4]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[4]);
-                       }else{
-                           equipChar.put(ItemCostas, "0");                           
-                       }
-                       
-                       if(!(equips_char.get(i)[5].equals("0"))){
-                           equipChar.put(ItemMaoEsq, equips_char.get(i)[5]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[5]);
-                       }else{
-                           equipChar.put(ItemMaoEsq, "0");                           
-                       }
-                       
-                       if(!(equips_char.get(i)[6].equals("0"))){
-                           equipChar.put(ItemMaoDir, equips_char.get(i)[6]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[6]);
-                       }else{
-                           equipChar.put(ItemMaoDir, "0");                           
-                       }
-                       
-                       if(!(equips_char.get(i)[7].equals("0"))){
-                           equipChar.put(ItemMaos, equips_char.get(i)[7]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[7]);
-                       }else{
-                           equipChar.put(ItemMaos, "0");                           
-                       }    
-                       
-                       if(!(equips_char.get(i)[8].equals("0"))){
-                           equipChar.put(ItemPernas, equips_char.get(i)[8]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[8]);
-                       }else{
-                           equipChar.put(ItemPernas, "0");                           
-                       }  
+                    if(!(equips_char.get(i)[2].equals("0"))){
+                        equipChar.put(ItemFace, equips_char.get(i)[2]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[2]);
+                    }else{
+                        equipChar.put(ItemFace, "0");                           
+                    }                       
 
-                       if(!(equips_char.get(i)[9].equals("0"))){
-                           equipChar.put(ItemPe, equips_char.get(i)[9]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[9]);
-                       }else{
-                           equipChar.put(ItemPe, "0");                           
-                       }  
+                    if(!(equips_char.get(i)[3].equals("0"))){
+                         equipChar.put(ItemPeito, equips_char.get(i)[3]);
+                         queryGlobal = queryGlobal.concat("," + equips_char.get(i)[3]);
+                    }else{
+                        equipChar.put(ItemPeito, "0");                           
+                    }
 
-                       if(!(equips_char.get(i)[10].equals("0"))){
-                           equipChar.put(ItemAcessorioEsq, equips_char.get(i)[10]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[10]);
-                       }else{
-                           equipChar.put(ItemAcessorioEsq, "0");                           
-                       }  
+                    if(!(equips_char.get(i)[4].equals("0"))){
+                        equipChar.put(ItemCostas, equips_char.get(i)[4]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[4]);
+                    }else{
+                        equipChar.put(ItemCostas, "0");                           
+                    }
 
-                       if(!(equips_char.get(i)[11].equals("0"))){
-                           equipChar.put(ItemAcessorioDir, equips_char.get(i)[11]);
-                           queryGlobal = queryGlobal.concat("," + equips_char.get(i)[11]);
-                       }else{
-                           equipChar.put(ItemAcessorioDir, "0");                           
-                       }                         
-                    }   
-                   
+                    if(!(equips_char.get(i)[5].equals("0"))){
+                        equipChar.put(ItemMaoEsq, equips_char.get(i)[5]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[5]);
+                    }else{
+                        equipChar.put(ItemMaoEsq, "0");                           
+                    }
+
+                    if(!(equips_char.get(i)[6].equals("0"))){
+                        equipChar.put(ItemMaoDir, equips_char.get(i)[6]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[6]);
+                    }else{
+                        equipChar.put(ItemMaoDir, "0");                           
+                    }
+
+                    if(!(equips_char.get(i)[7].equals("0"))){
+                        equipChar.put(ItemMaos, equips_char.get(i)[7]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[7]);
+                    }else{
+                        equipChar.put(ItemMaos, "0");                           
+                    }    
+
+                    if(!(equips_char.get(i)[8].equals("0"))){
+                        equipChar.put(ItemPernas, equips_char.get(i)[8]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[8]);
+                    }else{
+                        equipChar.put(ItemPernas, "0");                           
+                    }  
+
+                    if(!(equips_char.get(i)[9].equals("0"))){
+                        equipChar.put(ItemPe, equips_char.get(i)[9]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[9]);
+                    }else{
+                        equipChar.put(ItemPe, "0");                           
+                    }  
+
+                    if(!(equips_char.get(i)[10].equals("0"))){
+                        equipChar.put(ItemAcessorioEsq, equips_char.get(i)[10]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[10]);
+                    }else{
+                        equipChar.put(ItemAcessorioEsq, "0");                           
+                    }  
+
+                    if(!(equips_char.get(i)[11].equals("0"))){
+                        equipChar.put(ItemAcessorioDir, equips_char.get(i)[11]);
+                        queryGlobal = queryGlobal.concat("," + equips_char.get(i)[11]);
+                    }else{
+                        equipChar.put(ItemAcessorioDir, "0");                           
+                    }                         
+                 }  
+                try{                   
                    // Removendo a virgula inicial da string
                    queryGlobal = queryGlobal.substring(1);
+                }
+                catch( StringIndexOutOfBoundsException e){
+                    //System.out.println("Usuario sem itens");
+                }
 
                    ArrayList<String[]> corresp_especif_global = Db_query.DbQuery("SELECT idInstanciaItem, idListaItem FROM instanciaItem WHERE idInstanciaItem IN (" + queryGlobal + ")");                   
 
+
                     for(int i = 0; i< corresp_especif_global.size();i++){
-                        System.out.println(corresp_especif_global.get(i)[1]);
-                        JavaServerWS.set_relac_item_espec_global(corresp_especif_global.get(i)[1],corresp_especif_global.get(i)[2]);
-                    }  
+                      JavaServerWS.set_relac_item_espec_global(corresp_especif_global.get(i)[1],corresp_especif_global.get(i)[2]);
+                    }                         
                    usuario.setequipChar(equipChar);
         }
 
