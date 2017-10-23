@@ -17,7 +17,7 @@ public class ProcessaSolic {
         String [] parts_msg = message.split(":");
             SearchUser FindUsu = new SearchUser();
             User usuario = FindUsu.BuscaUsu(conn, ListaUsu);
-
+            
             // Tag de servico relacionada a login (l)
             if(parts_msg[0].equals("l")){
                 try{
@@ -96,5 +96,42 @@ public class ProcessaSolic {
             if(parts_msg[0].equals("i")){
                 conn.send("32:32");
             }
+            
+            // Tag relacionada a criacao de conta no sistema
+            if(parts_msg[0].equals("iCA")){
+                System.out.println("Solicitacao de criacao de conta ");
+                try{
+                    // Metodo da criacao da conta parametros (nome,usuario,senha,email)
+                    // Possui o retorno de iCAS se foi criada com sucesso a conta ou
+                    // iCAF se houve algum problema na criacao
+                    conn.send(CreateDelSolic.CreateSolicAccount(parts_msg[1],parts_msg[2],parts_msg[3],parts_msg[4]));                    
+                }catch(ArrayIndexOutOfBoundsException e){
+                   System.out.println("Existe algum campo em branco !"); 
+                   conn.send("ICAF");
+                }
+            }            
+            
+            // Tag relacionada a criacao de personagem no sistema
+            if(parts_msg[0].equals("iCC")){
+                System.out.println("Solicitacao de criacao de personagem ");
+                try{
+                    // Lista de parametros enviados ( nomeChar,estiloCabelo,corCabelo,sexo,corOlhos,str,agi,dex,inte,luk)
+                    conn.send(CreateDelSolic.CreateSolicChar(usuario.getidUser(), parts_msg[1], parts_msg[2], parts_msg[3], parts_msg[4], parts_msg[5], parts_msg[6], parts_msg[7], parts_msg[8], parts_msg[9], parts_msg[10]));                    
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println("Existe algum campo em branco !");
+                    conn.send("ICCF");
+                }
+            }
+            
+            // Tag relacioada a delecao de conta
+            if(parts_msg[0].equals("iDA")){
+                // Necessita o id da conta e a senha da mesma para delecao
+
+            }             
+            
+            // Tag relacioada a delecao de char
+            if(parts_msg[0].equals("iDC")){
+                // Necessita o id do char e a senha da conta para delecao
+            }                         
     }
 }

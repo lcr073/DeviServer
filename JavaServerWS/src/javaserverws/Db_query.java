@@ -61,6 +61,7 @@ public class Db_query {
             
         }catch(Exception e){
             System.out.println("Erro em insercao no DB");
+            System.out.println(e);
         }
     }
     
@@ -94,5 +95,25 @@ public class Db_query {
         }catch(Exception e){
             System.out.println("Erro em atualizacao no DB");
         }
-    }        
+    }
+    
+    // Operacao de contagem do ocorrencias de linhas encontradas
+    public static int numTuplas(String query){
+        try{
+            // Conexao db
+            Connection conn = Db.connect();
+            Statement st = conn.createStatement();
+
+            // ResultSet e um cursor que vai sempre avancando
+            ResultSet rs = st.executeQuery(query);
+            int cont = 0;
+            while(rs.next()){
+                cont = cont + 1;
+            } 
+            return cont;
+        }catch(Exception e){
+            System.out.println("Erro ao realizar a contagem de linhas");
+            return -1;
+        }
+    }
 }
