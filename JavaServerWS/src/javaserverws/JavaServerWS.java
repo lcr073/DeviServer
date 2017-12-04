@@ -16,6 +16,8 @@ public class JavaServerWS extends WebSocketServer{
         // Lista onde armazenamos todos os usuario logados e suas caracteristicas
         ArrayList <User> ListaUsu = new ArrayList<>();
         
+
+        
         // Criamos uma instancia de listaItem
         // Classe que possui um método que obtem todos os itens do db os retorna
         // na forma de um mapa onde teremos como a primeira chave o id de tal objeto
@@ -39,6 +41,11 @@ public class JavaServerWS extends WebSocketServer{
         
         public JavaServerWS(InetSocketAddress address) {
 		super(address);
+                
+                 // Criando uma atributo para passar para a thread de informações
+                // Thread de envio de informações ao cliente
+                Runnable enviaInfoCli = new InfosClient(ListaUsu, connections());
+                new Thread(enviaInfoCli).start();
                
                 // Acrescentando a referenca que um objeto vazio e 0
                 this.set_relac_item_espec_global("0","0");
@@ -83,6 +90,12 @@ public class JavaServerWS extends WebSocketServer{
                 // Thread de backupeamento com o DB
                 DbBuffer backup = new DbBuffer();
                 new Thread(backup).start();
+                
+
+                
+               // InfosClient enviaInfos = new InfosClient();
+                //new Thread(enviaInfos).start();
+                
                 System.out.println();
 
 

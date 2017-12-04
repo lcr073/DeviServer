@@ -126,6 +126,7 @@ public class ProcessaSolic {
             // Tag relacioada a delecao de conta
             if(parts_msg[0].equals("iDA")){
                 // Necessita o id da conta e a senha da mesma para delecao
+                
 
             }             
             
