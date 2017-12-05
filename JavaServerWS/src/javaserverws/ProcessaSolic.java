@@ -125,14 +125,30 @@ public class ProcessaSolic {
             
             // Tag relacioada a delecao de conta
             if(parts_msg[0].equals("iDA")){
-                // Necessita o id da conta e a senha da mesma para delecao
-                
+                try
+                {
+                    // Necessita o usuario estar logado para ter o objeto usuario e  senha 
+                    conn.send(CreateDelSolic.DelSolicAccount(usuario, parts_msg[1]));                    
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Faltou parte da mensagem !");
+                    conn.send("iDAF");
+                }
 
             }             
             
             // Tag relacioada a delecao de char
             if(parts_msg[0].equals("iDC")){
-                // Necessita o id do char e a senha da conta para delecao
+                try{
+                    // Necessita o id do char e a senha da conta para delecao e id da conta atual logada
+                    conn.send(CreateDelSolic.DelSolicChar(usuario, parts_msg[1], parts_msg[2]));
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Faltou parte da mensagem !");
+                    conn.send("iDCF");
+                }
             }                         
     }
 }

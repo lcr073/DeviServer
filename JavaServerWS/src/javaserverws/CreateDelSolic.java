@@ -23,6 +23,65 @@ public class CreateDelSolic {
     static Integer maxEmail = 63;
     static Integer minEmail = 6;
     
+    // Método para deleção da conta do usuario (necessita ter um usuario ja logado + senha)
+    public static String DelSolicAccount(User usuario, String senha){
+            // Fazemos entao uma segunda validação para ver se a senha realmente corresponde a conta
+            if(LoginValid.ValidPassUsu(usuario, senha))
+            {
+                // Deletar conta
+                // Verificacoes concluidas com sucesso inicio da gravacao no DB
+                try{
+                    String query = "DELETE FROM login WHERE idLogin = '"+ usuario.getidUser() + "'";
+                    Db_query.Insert(query);                
+                    return "iDAS";                    
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Algo deu errado mas dados corretos" + e);
+                    return "iDAF";
+                }
+            }
+            else
+            {
+                // Informaçoes incorretas
+                return "iDAF";
+            }
+        }
+
+    // Método para deleçao do personagem do usuario (necessita do id do char + senha da conta)
+    public static String DelSolicChar(User usuario, String idChar, String senha){
+        // Primeiro checamos se quem esta querendo deletar o personagem realmente é alguem logado na conta dele
+        
+        if(LoginValid.ValidCharAcc(usuario, idChar)){
+            // Fazemos entao uma segunda validação para ver se a senha realmente corresponde a conta
+            if(LoginValid.ValidPassUsu(usuario, senha))
+            {
+                try{
+                    String query = "DELETE FROM charc WHERE idChar = '"+ idChar + "'";
+                    Db_query.Insert(query);                
+                    return "iDCS";                    
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Algo deu errado mas dados corretos" + e);
+                    return "iDCF";
+                }
+            }
+            else
+            {
+                // Informaçoes incorretas
+                return "iDCF";
+            }
+        }
+        else
+        {
+            System.out.println("Hack ?");
+            return "iDCF";
+        }
+    }    
+    
+    
+    
     public static String CreateSolicAccount(String nome, String usuario,
             String senha, String email){
     /* 

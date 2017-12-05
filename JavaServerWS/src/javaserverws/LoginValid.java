@@ -26,7 +26,53 @@ public class LoginValid {
     public void setUsuario(String user){  this.Usuario = user;   }
     public void setSenha(String pass){ this.Senha = pass;  }
     public String getUsuario(){  return Usuario; }    
-    public String getSenha(){ return Senha; }       
+    public String getSenha(){ return Senha; }  
+    
+    
+    // Método utilizado para validar se a senha fornecida por um usuario realmente é sua senha (somente a senha)
+    public static boolean ValidPassUsu(User user, String pass){
+            // Validacao
+            ArrayList<String[]> busca_senha = Db_query.DbQuery("SELECT senha FROM login WHERE idLogin = '" + user.getidUser() +"'");
+
+            // Tenta retornar a senha vendo se é verdadeira
+            try{
+                String senha = busca_senha.get(0)[1];
+
+                  if(senha.equals(pass)){
+                        return true;
+                  }else{
+                      return false;
+                  }  
+            }
+            catch(IndexOutOfBoundsException e){
+                            return false;   
+            }        
+    }
+    
+
+
+    // Método utilizado para validar um certo personagem pertence a alguma conta fornecida
+    public static boolean ValidCharAcc(User user, String idChar){
+            // Validacao
+            ArrayList<String[]> busca_char_acc = Db_query.DbQuery("SELECT idLogin FROM charc WHERE idChar = '" + idChar +"'");
+
+            // Tenta retornar a senha vendo se é verdadeira
+            try{
+                String idLoginChar = busca_char_acc.get(0)[1];
+
+                // Compara se o id do dono do personagem é o mesmo da conta que esta logada
+                  if(idLoginChar.equals(user.getidUser())){
+                        return true;
+                  }else{
+                      return false;
+                  }  
+            }
+            catch(IndexOutOfBoundsException e){
+                            return false;   
+            }        
+    }    
+
+    
 
     public boolean Validlogin(User user){
         // Valida se usuario e senha estao com tamanho corretos

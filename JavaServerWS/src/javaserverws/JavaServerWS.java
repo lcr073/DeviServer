@@ -61,6 +61,7 @@ public class JavaServerWS extends WebSocketServer{
 	@Override
 	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
 		System.out.println("closed " + conn.getRemoteSocketAddress() + " with exit code " + code + " additional info: " + reason);
+                //ListaUsu.remove(User)
 	}
         
 	@Override

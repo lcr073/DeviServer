@@ -51,10 +51,13 @@ public class InfosClient implements Runnable{
                     
                    // Faz a thread dormir por 0.5 segundos                
                     Thread.sleep(500);
-                    System.out.println(infosUsu);
                     
-                    
-                    sendToAll(infosUsu,con);
+                    // Garantindo de não ficar mandando em branco
+                    if(!(infosUsu.equals(""))){
+                        System.out.println(infosUsu);
+                        sendToAll(infosUsu,con);                        
+                    }
+
 
                 }catch(InterruptedException e){
                     System.out.println("Erro no thread de envio de informações ao cliente: " + e);
