@@ -107,7 +107,7 @@ public class ProcessaSolic {
                     conn.send(CreateDelSolic.CreateSolicAccount(parts_msg[1],parts_msg[2],parts_msg[3],parts_msg[4]));                    
                 }catch(ArrayIndexOutOfBoundsException e){
                    System.out.println("Existe algum campo em branco !"); 
-                   conn.send("ICAF");
+                   conn.send("iCAF");
                 }
             }            
             
@@ -149,6 +149,67 @@ public class ProcessaSolic {
                     System.out.println("Faltou parte da mensagem !");
                     conn.send("iDCF");
                 }
-            }                         
+            }
+            
+            // Tag relacionada ao pedido de LogOff
+            if(parts_msg[0].equals("lOF"))
+            {
+                try{
+                    // Desconectar da lista de usuarios
+                    //Criando objeto de busca ao usuario
+                    SearchUser buscaUsu = new SearchUser();
+                    // Removendo usuario da lista de logados para nao enviar mais aos outros
+                    ListaUsu.remove(buscaUsu.BuscaUsu(conn, ListaUsu)); 
+                    // Responde que o logoff foi um sucesso
+                    conn.send("lOFS");
+                }
+                catch(Exception e)
+                {
+                    conn.send("lOFF");
+                    System.out.println("Ocorreu algum erro no logoff" + e);
+                }
+
+            }
+            
+            // Tag relacionada ao pedido de atualização de posição
+            if(parts_msg[0].equals("posx"))
+            {
+                //Verifica primeiramente se o jogador tem um personagem logado
+                if(usuario.getidCharSelect() == null)
+                {
+                    System.out.println("Jogador nao conectado");
+                }
+                else
+                {
+                    try{
+                        // Formato msg: send("posx:"+ Math.trunc(aluV.position.x) + ":" + "posz:"+ Math.trunc(aluV.position.z) + ":");
+                        // Atualizar a posiçao de tal usuario na RAM e no Buffer do DB
+                        // Atualizando x e y na ram
+                        usuario.setX(parts_msg[1]);
+                        usuario.setY(parts_msg[3]);
+
+                        // Solicitação para alteração no Buffer do DB
+
+                         //Registrando nova posiçao do jogador (p) position
+                         // posicao_char = [p, idChar , x , y ]
+                         String[] posicao_char = new String[4];
+
+                         // Mandando parametros para o buffer mandar para processar
+                        posicao_char[0] = "p";
+
+                        // id Char
+                        posicao_char[1] = usuario.getidCharSelect();
+                        posicao_char[2] = usuario.getX();
+                        posicao_char[3] = usuario.getY();
+
+                        DbBuffer.DbBuffer.add(posicao_char);                         
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Algo de errado aconteceu na posicao"+ e);
+                    }
+                                   
+                }
+            }            
     }
 }

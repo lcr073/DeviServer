@@ -23,7 +23,7 @@ public class DbBuffer implements Runnable {
                 //Fazendo as trocas de buffers
                 DbBuffer_Interno = DbBuffer;
 
-                    try{
+            try{
                 // Zerando a referencia do DbBuffer
                 DbBuffer = new ArrayList<String[]>();
                 

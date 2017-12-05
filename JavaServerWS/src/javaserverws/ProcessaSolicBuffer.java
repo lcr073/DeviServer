@@ -21,10 +21,18 @@ public class ProcessaSolicBuffer {
                     Db_query.Update(query);
                 }  
 
+                // a Corresponde ao ultimo endereco que o jogador efetuou login
                 if(DbBuffer_Interno.get(i)[0].equals("a")){
                     String query = "UPDATE login SET ultimo_endereco = '" + DbBuffer_Interno.get(i)[2] + "' WHERE idLogin = "+ DbBuffer_Interno.get(i)[1] ;
                     Db_query.Update(query);
                 }              
+                
+                // p Corresponde a ultima atualizaçao de posição x, y enviada pelo jogador
+                if(DbBuffer_Interno.get(i)[0].equals("p")){
+                    String query = "UPDATE charc SET x = '" + DbBuffer_Interno.get(i)[2] + "', y = '"+ DbBuffer_Interno.get(i)[3]  + "' WHERE idChar = "+ DbBuffer_Interno.get(i)[1] ;
+                    Db_query.Update(query);
+                }              
+                
             }catch(Exception e){
                 System.out.println("Buffer de backup vazio");
             }

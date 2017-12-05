@@ -61,7 +61,11 @@ public class JavaServerWS extends WebSocketServer{
 	@Override
 	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
 		System.out.println("closed " + conn.getRemoteSocketAddress() + " with exit code " + code + " additional info: " + reason);
-                //ListaUsu.remove(User)
+                //Criando objeto de busca ao usuario
+                SearchUser buscaUsu = new SearchUser();
+                
+                // Removendo usuario da lista de logados para nao enviar mais aos outros
+                ListaUsu.remove(buscaUsu.BuscaUsu(conn, ListaUsu));
 	}
         
 	@Override
@@ -75,6 +79,10 @@ public class JavaServerWS extends WebSocketServer{
 	@Override
 	public void onError(WebSocket conn, Exception ex) {
 		System.err.println("an error occured on connection " + conn.getRemoteSocketAddress()  + ":" + ex);
+                //Criando objeto de busca ao usuario
+                SearchUser buscaUsu = new SearchUser();
+                // Removendo usuario da lista de logados para nao enviar mais aos outros
+                ListaUsu.remove(buscaUsu.BuscaUsu(conn, ListaUsu));                
 	}
 	
 
